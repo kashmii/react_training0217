@@ -12,11 +12,23 @@ class App extends React.Component {
 		};
 	}
 
+	submitRsv(option) {
+		fetch("http://localhost:3000/seminar_registers", {
+    		method: "POST",
+      		headers: {
+        		'Accept': 'application/json',
+        		'Content-Type': 'application/json'
+      		},
+			// 以下はJSONを読み込むコードであり、引数にはitemというseminarテーブルのレコード
+			// (つまりJSON)が入っているため、丸括弧でOK
+      		body: JSON.stringify( option )
+    	})
+	}
+
 	// ComponentDidMount is used to
 	// execute the code
 	componentDidMount() {
-		fetch(
-  "http://127.0.0.1:3000/seminars")
+		fetch("http://127.0.0.1:3000/seminars")
 			.then((res) => res.json())
 			.then((json) => {
 				this.setState({
@@ -35,9 +47,10 @@ class App extends React.Component {
 			<h1> Fetch data from an api in react </h1> {
 				items.map((item) => (
 				<ol key = { item.id } >
-					User_Name: { item.date },
-					Full_Name: { item.place },
-					User_Email: { item.title }
+					日付: { item.date },
+					場所: { item.place },
+					セミナータイトル: { item.title }
+					<button onClick={() => this.submitRsv({item})}>BUTTON</button>
 				</ol>
 				))
 			}
