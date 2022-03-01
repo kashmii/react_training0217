@@ -50,8 +50,6 @@ class App extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
-			// 以下はJSONを読み込むコードであり、引数にはitemというseminarテーブルのレコード
-			// (つまりJSON)が入っているため、丸括弧でOK
     body: JSON.stringify( option )
     })
 	}
