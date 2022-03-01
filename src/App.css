@@ -24,3 +24,26 @@
 		transform: rotate(360deg);
 	}
 }
+
+/* .btn{
+	min-width: 80px;
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: .75em 1.5em;
+	text-align: center;
+	line-height: 120%;
+	font-size: 16px;
+}
+
+.btn-skin{
+	border-radius: 6px;
+	background: #fdb8b8;
+	color: #000000;
+} */
+
+/* form */
+.form-list {
+	list-style: none;
+}
