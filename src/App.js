@@ -1,7 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import Form from "./components/Form";
-import Home from "./components/Home";
+// import Home from "./components/Home";
 import Finish from "./components/Finish";
+import axios from "axios";
 import { 
 	BrowserRouter as Router,
 	Switch,
@@ -12,6 +14,11 @@ import {
 
 import './App.css';
 
+// const [seminar, setSeminar] = useState({
+// 	id: "",
+// 	title: ""
+// });
+
 class App extends React.Component {
 
 	// Constructor
@@ -20,15 +27,11 @@ class App extends React.Component {
 
 		this.state = {
 			items: [],
-			DataisLoaded: false,
-			username: "",
-			kana: "",
-			birth_date: "",
-			sex: "",
-			tel: [], 
-			email: ""
+			DataisLoaded: false
 		};
 	}
+
+
 
 	submitRsv(option) {
 	fetch("http://localhost:3000/seminar_registers", {
@@ -43,27 +46,26 @@ class App extends React.Component {
     })
 	}
 
-	submitForm(option) {
-	fetch("http://localhost:3000/users", {
-    method: "POST",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify( option )
-    })
+	toForm(option) {
+		// console.log(option.item.id)
+		console.log(option.item)
+		
+		// axios.get("http://localhost:3000/seminars")
+		// .then
 	}
 
-	toForm(option) {
-		fetch("http://localhost:3000/seminar_registers/new", {
-    method: "GET",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-	body: JSON.stringify( option )
-	})
-	}
+	// submitForm(option) {
+	// fetch("http://localhost:3000/users", {
+    // method: "POST",
+    // headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    // },
+    // body: JSON.stringify( option )
+    // })
+	// }
+
+
 
 	// ComponentDidMount is used to
 	// execute the code
@@ -84,6 +86,15 @@ class App extends React.Component {
 
 		return (
 		<Router>
+			
+			<Switch>
+			<Route path="/form">
+				<Form />
+			</Route>
+			<Route path="/finish">
+				<Finish />
+			</Route>
+			<Route exact path="/">
 			<div className = "App">
 				<h1> セミナー一覧 </h1> {
 					items.map((item) => (
@@ -94,20 +105,12 @@ class App extends React.Component {
 						<button onClick={() => this.submitRsv({item})}>即登録</button>,
 						<Link to="/form">
 							<button onClick={() => this.toForm({item})}>フォーム</button>
-						</Link>
+							{/* onClick={() => this.toForm({item})} 上で使ってた */}
+						</Link>						
 					</ol>
 					))
 				}
 			</div>
-			<Switch>
-			<Route path="/form">
-				<Form />
-			</Route>
-			<Route path="/finish">
-				<Finish />
-			</Route>
-			<Route exact path="/home">
-				<Home />
 			</Route>
 			</Switch>
 		</Router>
