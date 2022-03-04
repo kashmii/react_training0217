@@ -1,23 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import Form from "./components/Form";
-// import Home from "./components/Home";
+// import Form from "./components/Form";
+import Test from "./components/Test";
 import Finish from "./components/Finish";
-import axios from "axios";
 import { 
 	BrowserRouter as Router,
 	Switch,
 	Route,
 	Link
 } from "react-router-dom";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
-
-// const [seminar, setSeminar] = useState({
-// 	id: "",
-// 	title: ""
-// });
 
 class App extends React.Component {
 
@@ -27,7 +20,8 @@ class App extends React.Component {
 
 		this.state = {
 			items: [],
-			DataisLoaded: false
+			DataisLoaded: false,
+			seminarId: 0
 		};
 	}
 
@@ -47,25 +41,20 @@ class App extends React.Component {
 	}
 
 	toForm(option) {
-		// console.log(option.item.id)
-		console.log(option.item)
-		
+		console.log(option.item.id)
+		// console.log(option.item),
 		// axios.get("http://localhost:3000/seminars")
 		// .then
 	}
 
-	// submitForm(option) {
-	// fetch("http://localhost:3000/users", {
-    // method: "POST",
-    // headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    // },
-    // body: JSON.stringify( option )
-    // })
-	// }
-
-
+	// stateにseminarId=0を作り、htmlのmap内で1ずつ加算して、クリックがあったらその段階のstateを
+	// Form.jsから引っ張れるかと思って作った…がその引っ張り方はそもそも無理かも。
+	testTest() {
+		this.setState((state) => {
+			return {seminarId: state.seminarId + 1}
+		});
+		console.log(this.state.seminarId)
+	}
 
 	// ComponentDidMount is used to
 	// execute the code
@@ -88,8 +77,8 @@ class App extends React.Component {
 		<Router>
 			
 			<Switch>
-			<Route path="/form">
-				<Form />
+			<Route path="/test">
+				<Test />
 			</Route>
 			<Route path="/finish">
 				<Finish />
@@ -101,12 +90,10 @@ class App extends React.Component {
 					<ol key = { item.id } >
 						日付: { item.date },
 						場所: { item.place },
-						セミナータイトル: { item.title },
-						<button onClick={() => this.submitRsv({item})}>即登録</button>,
-						<Link to="/form">
+						セミナータイトル: { item.title }
+						<Link to="/Test">
 							<button onClick={() => this.toForm({item})}>フォーム</button>
-							{/* onClick={() => this.toForm({item})} 上で使ってた */}
-						</Link>						
+						</Link>
 					</ol>
 					))
 				}
